@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Title | Llama Dev Builds</title>
+    <meta
+      name="description"
+      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+    />
+
+    <!-- Preload Critical Assets to guarantee LCP under 2.5 seconds -->
+    <link rel="preload" href="/css/style.css" as="style" />
+    <link
+      rel="preload"
+      href="/fonts/main-font.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Open Graph Matrix (Crucial for when your Llama Mascot is shared) -->
+    <meta property="og:title" content="Article Title | Llama Dev Builds" />
+    <meta
+      property="og:description"
+      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+    />
+    <meta
+      property="og:image"
+      content="https://llamadevbuilds.com/assets/llama-og-image.jpg"
+    />
+    <meta property="og:url" content="https://llamadevbuilds.com/article-slug" />
+    <meta property="og:type" content="article" />
+
+    <!-- GA4 Tag (Async execution prevents render-blocking) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
+    </script>
+
+    <!-- JSON-LD Schema will be injected here -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://llamadevbuilds.com/#organization",
+            "name": "Llama Dev Builds",
+            "url": "https://llamadevbuilds.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://llamadevbuilds.com/assets/llama-logo.png"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://llamadevbuilds.com/#website",
+            "url": "https://llamadevbuilds.com",
+            "name": "Llama Dev Builds",
+            "publisher": { "@id": "https://llamadevbuilds.com/#organization" }
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://llamadevbuilds.com/article-slug#blogpost",
+            "headline": "Article Title",
+            "image": "https://llamadevbuilds.com/assets/llama-og-hero.jpg",
+            "datePublished": "2026-09-01T08:00:00-05:00",
+            "dateModified": "2026-09-01T08:00:00-05:00",
+            "author": {
+              "@type": "Person",
+              "name": "Developer Llama"
+            },
+            "publisher": { "@id": "https://llamadevbuilds.com/#organization" },
+            "mainEntityOfPage": { "@id": "https://llamadevbuilds.com/#website" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <!-- Semantic Navigation -->
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header>
+          <h1>Llama Dev Builds - Incoming...</h1>
+          <time datetime="2026-09-01">September 1, 2026</time>
+        </header>
+        <section class="content">
+          <!-- Article text, code snippets, and custom Llama diagrams -->
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <!-- Footer Links & Copyright -->
+    </footer>
+  </body>
+</html>
