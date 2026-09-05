@@ -1,25 +1,143 @@
-/* Base Variables & Reset */
+/* =========================================
+   1. ROOT VARIABLES (THE BRAND SYSTEM)
+   ========================================= */
 :root {
-  --bg-charcoal: #1e1e24;
+  /* Brand Palette */
+  --bg-charcoal: #24292e;
+  --bg-page: #fafafa;
   --accent-green: #39ff14;
+
+  /* Typography Colors */
+  --text-main: #333333;
   --text-light: #f4f4f4;
+  --text-meta: #5c6682; /* WCAG Accessible contrast */
+  --code-pink: #d63384;
+
+  /* Global Spacing Scale (Use these instead of random pixel values) */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-xxl: 60px;
 }
 
-* {
+/* =========================================
+   2. GLOBAL RESET & BOX SIZING
+   ========================================= */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Crucial: padding won't expand element widths */
 }
 
+/* Base element resets */
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================
+   3. GLOBAL TYPOGRAPHY
+   ========================================= */
 body {
-  font-family: sans-serif;
-  background-color: #ffffff; /* Page background */
+  /* System font stack for maximum performance and crisp OS-level rendering */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+
+  /* Text rendering optimization */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* The Header & Flexbox Layout */
+/* Headers System */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--bg-charcoal);
+  line-height: 1.2;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin-top: 0; /* Prevents awkward gap at the top of the page */
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  /* Premium Design Touch: A subtle Hacker Green underline to anchor sections */
+  border-bottom: 2px solid var(--accent-green);
+  padding-bottom: var(--space-sm);
+  display: inline-block;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Paragraph System */
+p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+}
+
+/* The Meta Date */
+.meta-date {
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  color: var(--text-meta);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+/* =========================================
+   4. STRUCTURAL LAYOUT
+   ========================================= */
+main {
+  /* The optimal line-length constraint for human readability */
+  max-width: 800px;
+
+  /* Centers the container horizontally with top/bottom breathing room */
+  margin: var(--space-xxl) auto;
+
+  /* Prevents text from touching the absolute edge on mobile devices */
+  padding: 0 var(--space-lg);
+}
+
+/* =========================================
+   5. NAVIGATION & HEADER
+   ========================================= */
 .llama-header {
   background-color: var(--bg-charcoal);
-  padding: 1rem 2rem;
+  padding: var(--space-md) var(--space-lg);
 }
 
 .llama-nav {
@@ -32,21 +150,19 @@ body {
 
 .logo {
   color: var(--accent-green);
-  text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-/* Desktop Navigation Links */
+/* Desktop Navigation */
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: var(--space-xl);
 }
 
 .nav-links a {
   color: var(--text-light);
-  text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -55,9 +171,9 @@ body {
   color: var(--accent-green);
 }
 
-/* Hamburger Button Styling */
+/* Mobile Hamburger Trigger */
 .hamburger {
-  display: none; /* Hidden on desktop */
+  display: none;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -65,7 +181,6 @@ body {
   flex-direction: column;
 }
 
-/* Giving the hamburger lines physical shape and color */
 .hamburger .line {
   width: 25px;
   height: 3px;
@@ -74,7 +189,38 @@ body {
   transition: all 0.3s ease;
 }
 
-/* The "X" Animation */
+/* The Mobile Transition Architecture */
+@media (max-width: 768px) {
+  /* Ensure the hamburger button ALWAYS floats above the open menu */
+  .hamburger {
+    display: flex;
+    position: relative; /* Required for z-index to work */
+    z-index: 101;
+  }
+  .nav-links {
+    position: fixed; /* Locks it to the screen so it doesn't scroll away */
+    top: 0; /* Starts at the absolute top of the viewport */
+    right: 0;
+    height: 100vh;
+    width: 60%; /* Slightly wider for better UX */
+    background-color: var(--bg-charcoal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 100px; /* Pushes the links down so the "X" doesn't cover them */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in;
+    z-index: 100; /* Sits directly beneath the z-index: 101 hamburger */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Adds a premium drop-shadow edge */
+  }
+
+  .nav-links.nav-active {
+    transform: translateX(0%);
+  }
+}
+
+/* Hamburger "X" Animation */
 .hamburger.is-active .line:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -85,29 +231,64 @@ body {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* 5. Mobile Transition (Media Query) */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex; /* Show on mobile */
-  }
+/* =========================================
+   6. CODE BLOCKS
+   ========================================= */
+pre {
+  /* The !important tag forces Prism to use your exact Charcoal */
+  background-color: var(--bg-charcoal) !important;
+  padding: var(--space-lg) !important;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: var(--space-xl);
+  border-left: 4px solid var(--accent-green);
+}
 
-  .nav-links {
-    position: absolute;
-    right: 0px;
-    top: 60px; /* Adjust based on header height */
-    height: calc(100vh - 60px);
-    background-color: var(--bg-charcoal);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 2rem;
-    width: 50%;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in;
-  }
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95rem;
+}
 
-  .nav-links.nav-active {
-    transform: translateX(0%);
-  }
+/* Inline code formatting for keywords inside paragraphs */
+p code {
+  background-color: #e9ecef;
+  color: var(--code-pink);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* =========================================
+   7. COMPONENTS (Monetization & Alerts)
+   ========================================= */
+.cta-box {
+  background-color: var(--bg-charcoal);
+  color: var(--text-light);
+  padding: var(--space-lg);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-green);
+  margin: var(--space-xl) 0;
+}
+
+.cta-box h3 {
+  color: var(--accent-green);
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  border-bottom: none; /* Overrides the global h3 styling */
+}
+
+.cta-box p {
+  color: var(--text-light); /* Overrides global paragraph color */
+  margin-bottom: var(--space-md);
+}
+
+.cta-box a {
+  color: var(--accent-green);
+  font-weight: bold;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.cta-box a:hover {
+  opacity: 0.8;
 }
