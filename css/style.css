@@ -3,7 +3,7 @@
    ========================================= */
 :root {
   /* Brand Palette */
-  --bg-charcoal: #24292e;
+  --bg-charcoal: #202124;
   --bg-page: #fafafa;
   --accent-green: #39ff14;
 
@@ -149,6 +149,9 @@ main {
 }
 
 .logo {
+  display: flex;
+  align-items: center; /* Vertically centers the Llama and the text */
+  gap: 12px; /* Creates perfect, scalable spacing between them */
   color: var(--accent-green);
   font-size: 1.5rem;
   font-weight: bold;
