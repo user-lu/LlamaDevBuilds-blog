@@ -265,6 +265,25 @@ p {
   color: #1e1e24;
 }
 
+/* Card Preview Action Button */
+.btn-preview {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--accent-green);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: inline-block;
+  flex: 1;
+}
+
+.btn-preview:hover {
+  background-color: var(--accent-green);
+  color: #1e1e24;
+}
+
 /* Mobile Hamburger Trigger */
 .hamburger {
   display: none;
