@@ -4,36 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 1. Primary SEO -->
-    <title>High-Performance Vanilla JS & CSS | Llama Dev Builds</title>
+    <!-- Primary SEO -->
+    <title>Technical Articles & Guides | Llama Dev Builds</title>
     <meta
       name="description"
-      content="High-performance UI components and technical web development deep-dives built exclusively with HTML, CSS, and Vanilla JavaScript."
+      content="In-depth technical tutorials on zero-bloat web development, technical SEO architecture, and high-performance frontend systems."
     />
 
-    <!-- 2. Preload Critical Assets -->
+    <!-- Preload Critical Assets -->
     <link rel="preload" href="/css/style.css" as="style" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <!-- 3. Open Graph Matrix for the Hub -->
+    <!-- Open Graph Matrix -->
     <meta
       property="og:title"
-      content="Llama Dev Builds | Zero-Bloat Web Development"
+      content="Technical Articles & Guides | Llama Dev Builds"
     />
     <meta
       property="og:description"
-      content="High-performance UI components and technical web development deep-dives."
+      content="In-depth technical tutorials on zero-bloat web development and technical SEO."
     />
-    <!-- Update this image URL to a general brand image when ready -->
     <meta
       property="og:image"
-      content="https://llamadevbuilds.com/assets/llama-og-image.jpg"
+      content="https://llamadevbuilds.com/assets/og-articles-hub.jpg"
     />
-    <meta property="og:url" content="https://llamadevbuilds.com/" />
+    <meta
+      property="og:url"
+      content="https://llamadevbuilds.com/articles.html"
+    />
     <meta property="og:type" content="website" />
 
-    <!-- 4. FOUC Prevention Script (Must execute before DOM paints) -->
+    <!-- FOUC Prevention Script -->
     <script>
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)",
@@ -44,43 +46,22 @@
       }
     </script>
 
-    <!-- 5. GA4 Tag -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-XXXXXXXXXX");
-    </script>
-
-    <!-- 6. JSON-LD Hub Schema -->
+    <!-- CollectionPage Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://llamadevbuilds.com/#organization",
-            "name": "Llama Dev Builds",
-            "url": "https://llamadevbuilds.com",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://llamadevbuilds.com/assets/llama-logo.png"
-            }
-          },
-          {
-            "@type": "WebSite",
-            "@id": "https://llamadevbuilds.com/#website",
-            "url": "https://llamadevbuilds.com",
-            "name": "Llama Dev Builds",
-            "publisher": { "@id": "https://llamadevbuilds.com/#organization" }
+        "@type": "CollectionPage",
+        "name": "Llama Dev Builds Articles Hub",
+        "description": "Structured technical guides categorized by zero-bloat web development, technical SEO, and B2B systems.",
+        "url": "https://llamadevbuilds.com/articles.html",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Llama Dev Builds",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://llamadevbuilds.com/favicon.png"
           }
-        ]
+        }
       }
     </script>
   </head>
@@ -99,22 +80,23 @@
           <span>Llama Dev Builds</span>
         </a>
 
-        <!-- Group the links and toggle button together -->
         <div class="nav-actions">
           <ul class="nav-links">
-            <li>
-              <a href="/index.html" style="color: var(--accent-green)">Home</a>
-            </li>
+            <li><a href="/index.html">Home</a></li>
             <li><a href="/builds.html">Builds</a></li>
-            <li><a href="/articles.html">Articles</a></li>
+            <li>
+              <a href="/articles.html" style="color: var(--accent-green)"
+                >Articles</a
+              >
+            </li>
           </ul>
 
+          <!-- SVG Toggle Button -->
           <button
             id="theme-toggle"
             aria-label="Toggle Dark Mode"
             class="theme-btn"
           >
-            <!-- SUN ICON (Hidden in Dark Mode) -->
             <svg
               class="sun-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -137,8 +119,6 @@
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-
-            <!-- MOON ICON (Hidden in Light Mode) -->
             <svg
               class="moon-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -165,21 +145,24 @@
     </header>
 
     <main class="hub-container">
-      <!-- HERO SECTION -->
+      <!-- HERO -->
       <section class="hero">
-        <h1>Stop the Bloat. Master the Fundamentals.</h1>
+        <h1>Engineering Articles & Deep-Dives</h1>
         <p>
-          High-performance UI components and technical deep-dives built
-          exclusively with HTML, CSS, and Vanilla JavaScript.
+          Master modern web performance, core architecture, and search
+          optimization through practical, zero-bloat guides.
         </p>
       </section>
 
-      <!-- RECENT ARTICLES GRID -->
-      <section class="article-feed">
-        <h2>Latest Technical Builds</h2>
+      <!-- SILO 1: NO-BLOAT WEB DEVELOPMENT -->
+      <section class="article-feed" style="margin-bottom: var(--space-xxl)">
+        <h2>"No-Bloat" Web Development</h2>
+        <p style="color: var(--text-meta); margin-bottom: var(--space-lg)">
+          Mastering native HTML, CSS, and Vanilla JavaScript without heavy
+          frameworks.
+        </p>
 
-        <div class="grid-layout">
-          <!-- Article Card 1 -->
+        <div class="grid-layout" style="margin-top: 0">
           <a href="/responsive-navbar-vanilla-js.html" class="article-card">
             <div class="card-content">
               <span class="category-tag">Vanilla JS</span>
@@ -192,7 +175,6 @@
             </div>
           </a>
 
-          <!-- Article Card 2 -->
           <a
             href="/vanilla-js-dark-mode-toggle-localstorage.html"
             class="article-card"
@@ -212,6 +194,56 @@
           </a>
         </div>
       </section>
+
+      <!-- SILO 2: TECHNICAL & LOCAL SEO ARCHITECTURE -->
+      <section class="article-feed" style="margin-bottom: var(--space-xxl)">
+        <h2>Technical & Local SEO Architecture</h2>
+        <p style="color: var(--text-meta); margin-bottom: var(--space-lg)">
+          Structuring code, schema markup, and site architecture to dominate
+          search visibility.
+        </p>
+
+        <div class="grid-layout" style="margin-top: 0">
+          <div class="article-card" style="opacity: 0.7; border-style: dashed">
+            <div class="card-content">
+              <span class="category-tag">Coming Soon</span>
+              <h3>Advanced JSON-LD Schema Strategies for Local Businesses</h3>
+              <p>
+                A deep dive into custom schema markup implementation to maximize
+                local map pack rankings.
+              </p>
+              <span class="read-more" style="color: var(--text-meta)"
+                >In Production &rarr;</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SILO 3: B2B SYSTEMS & CAMPAIGN MANAGEMENT -->
+      <section class="article-feed" style="margin-bottom: var(--space-xxl)">
+        <h2>B2B Systems & Campaign Management</h2>
+        <p style="color: var(--text-meta); margin-bottom: var(--space-lg)">
+          Building scalable workflows, conversion tracking, and client
+          retainers.
+        </p>
+
+        <div class="grid-layout" style="margin-top: 0">
+          <div class="article-card" style="opacity: 0.7; border-style: dashed">
+            <div class="card-content">
+              <span class="category-tag">Coming Soon</span>
+              <h3>Setting Up GA4 Event Tracking for Service-Based Web Apps</h3>
+              <p>
+                How to track user conversions, form submissions, and high-value
+                user interactions cleanly.
+              </p>
+              <span class="read-more" style="color: var(--text-meta)"
+                >In Production &rarr;</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- FOOTER -->
@@ -228,22 +260,14 @@
 
     <!-- DARK MODE & UI LOGIC -->
     <script>
-      // Theme Toggle Logic
       const themeToggleBtn = document.querySelector("#theme-toggle");
-      themeToggleBtn.addEventListener("click", () => {
-        document.documentElement.classList.toggle("dark-mode");
-        const theme = document.documentElement.classList.contains("dark-mode")
-          ? "dark"
-          : "light";
-        localStorage.setItem("theme", theme);
-      });
-
-      // Mobile Hamburger Logic (Placeholder for your existing logic)
-      const hamburger = document.querySelector(".hamburger");
-      const navLinks = document.querySelector(".nav-links");
-      if (hamburger) {
-        hamburger.addEventListener("click", () => {
-          navLinks.classList.toggle("active");
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark-mode");
+          const theme = document.documentElement.classList.contains("dark-mode")
+            ? "dark"
+            : "light";
+          localStorage.setItem("theme", theme);
         });
       }
     </script>

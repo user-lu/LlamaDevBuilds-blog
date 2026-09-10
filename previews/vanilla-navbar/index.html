@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla JS Responsive Navbar | Llama Dev Builds</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ==========================================
+       START NAVBAR COMPONENT
+       Copy this <header> into your project
+       ========================================== -->
+    <header class="llama-header navbar">
+      <nav class="llama-nav">
+        <a href="#" class="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <span>BrandLogo</span>
+        </a>
+
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+
+          <!-- Dark Mode Toggle (Using Inline SVGs for Zero HTTP Requests) -->
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <button class="hamburger" aria-label="Toggle navigation">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </nav>
+    </header>
+    <!-- ==========================================
+       END NAVBAR COMPONENT
+       ========================================== -->
+
+    <main style="padding: 40px; text-align: center">
+      <h1>Responsive Vanilla Navbar</h1>
+      <p>
+        Resize the browser to see the hardware-accelerated mobile menu in
+        action.
+      </p>
+    </main>
+
+    <!-- Component Logic -->
+    <script>
+      // 1. Mobile Hamburger Logic
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("nav-active");
+        hamburger.classList.toggle("is-active");
+      });
+
+      // 2. Dark Mode Toggle Logic
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      themeToggleBtn.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark-mode");
+      });
+    </script>
+    <div
+      style="
+        background: #39ff14;
+        color: #1e1e24;
+        padding: 12px;
+        text-align: center;
+        font-weight: bold;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 9999;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      "
+    >
+      Previewing: Vanilla JS Navbar Bundle &mdash;
+      <a
+        href="https://yourname.gumroad.com/l/vanilla-js-navbar-bundle"
+        style="color: #1e1e24; text-decoration: underline"
+        >Purchase Code &rarr;</a
+      >
+    </div>
+  </body>
+</html>

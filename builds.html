@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Premium Vanilla JS UI Kits & Templates | Llama Dev Builds</title>
+    <meta
+      name="description"
+      content="Accelerate your workflow with premium, zero-bloat UI kits, Vanilla JS components, and digital productivity templates."
+    />
+
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="/css/style.css" as="style" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Open Graph Matrix -->
+    <meta
+      property="og:title"
+      content="Premium Vanilla JS UI Kits & Templates"
+    />
+    <meta
+      property="og:description"
+      content="Zero-bloat UI kits and digital products for modern developers."
+    />
+    <meta
+      property="og:image"
+      content="https://llamadevbuilds.com/assets/og-builds-hub.jpg"
+    />
+    <meta property="og:url" content="https://llamadevbuilds.com/builds.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- FOUC Prevention Script -->
+    <script>
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "dark" || (!currentTheme && prefersDark)) {
+        document.documentElement.classList.add("dark-mode");
+      }
+    </script>
+
+    <!-- CollectionPage Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Llama Dev Builds Template Hub",
+        "description": "A collection of premium, zero-bloat web development templates and digital productivity assets.",
+        "url": "https://llamadevbuilds.com/builds.html",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Llama Dev Builds",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://llamadevbuilds.com/favicon.png"
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body id="top">
+    <!-- STICKY NAVBAR -->
+    <header class="llama-header navbar">
+      <nav class="llama-nav">
+        <a href="/" class="logo">
+          <img
+            src="/assets/llama-logo.svg"
+            alt="Llama Dev Builds Logo"
+            width="40"
+            height="40"
+          />
+          <span>Llama Dev Builds</span>
+        </a>
+
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li>
+              <a href="/builds.html" style="color: var(--accent-green)"
+                >Builds</a
+              >
+            </li>
+            <li><a href="/articles.html">Articles</a></li>
+          </ul>
+
+          <!-- SVG Toggle Button -->
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <button class="hamburger" aria-label="Toggle navigation">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="hub-container">
+      <!-- STOREFRONT HERO -->
+      <section class="hero">
+        <h1>Premium UI Kits & Templates</h1>
+        <p>
+          Stop reinventing the wheel. Download fully responsive, zero-dependency
+          templates built for extreme performance and accessibility.
+        </p>
+      </section>
+
+      <!-- DIGITAL PRODUCTS GRID -->
+      <section class="article-feed">
+        <h2>Web Development Components</h2>
+
+        <div class="grid-layout">
+          <!-- Product Card 1 -->
+          <div class="article-card">
+            <div class="card-content">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <span class="category-tag">UI Kit</span>
+                <span
+                  style="
+                    color: var(--accent-green);
+                    font-family: monospace;
+                    font-weight: bold;
+                  "
+                  >$29</span
+                >
+              </div>
+              <h3>The Vanilla JS Navbar Bundle</h3>
+              <p>
+                5 premium, fully responsive navigation architectures. Includes
+                mega-menus, sticky headers, and mobile off-canvas sidebars.
+              </p>
+              <div style="margin-top: 1.5rem; display: flex; gap: 10px">
+                <a
+                  href="https://llamadevbuilds.com/previews/vanilla-navbar/index.html"
+                  class="theme-btn"
+                  style="text-align: center; flex: 1"
+                  >Live Preview</a
+                >
+                <a
+                  href="https://llamadev0.gumroad.com/l/vanilla-js-navbar-bundle?wanted=true"
+                  class="theme-btn"
+                  style="
+                    background-color: var(--accent-green);
+                    color: #1e1e24;
+                    text-align: center;
+                    flex: 1;
+                  "
+                  >Get Code &rarr;</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2 (Future Notion Template Placeholder) -->
+          <div class="article-card">
+            <div class="card-content">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <span class="category-tag">Notion Planner</span>
+                <span
+                  style="
+                    color: var(--accent-green);
+                    font-family: monospace;
+                    font-weight: bold;
+                  "
+                  >$15</span
+                >
+              </div>
+              <h3>Freelance Developer OS</h3>
+              <p>
+                The ultimate Notion workspace to track client projects, manage
+                freelance invoices, and organize your technical SEO audits.
+              </p>
+              <!-- Replace the button container on the Notion Planner card with this: -->
+              <div style="margin-top: 1.5rem">
+                <span
+                  style="
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    background-color: var(--border-color);
+                    color: var(--text-meta);
+                    font-family: monospace;
+                    font-size: 0.85rem;
+                    letter-spacing: 0.05rem;
+                    text-transform: uppercase;
+                  "
+                >
+                  In Development — Dropping Soon
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2026 Llama Dev Builds. Built with Vanilla JS and Zero Bloat.
+        </p>
+        <a href="#top" class="scroll-to-top" aria-label="Scroll back to top"
+          >&uarr; Back to Top</a
+        >
+      </div>
+    </footer>
+
+    <!-- DARK MODE & UI LOGIC -->
+    <script>
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark-mode");
+          const theme = document.documentElement.classList.contains("dark-mode")
+            ? "dark"
+            : "light";
+          localStorage.setItem("theme", theme);
+        });
+      }
+    </script>
+  </body>
+</html>
