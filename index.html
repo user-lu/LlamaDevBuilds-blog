@@ -3,38 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Llama Dev Builds</title>
+
+    <!-- 1. Primary SEO -->
+    <title>High-Performance Vanilla JS & CSS | Llama Dev Builds</title>
     <meta
       name="description"
-      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+      content="High-performance UI components and technical web development deep-dives built exclusively with HTML, CSS, and Vanilla JavaScript."
     />
 
-    <!-- Preload Critical Assets to guarantee LCP under 2.5 seconds -->
+    <!-- 2. Preload Critical Assets -->
     <link rel="preload" href="/css/style.css" as="style" />
-    <link
-      rel="preload"
-      href="/fonts/main-font.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <!-- Open Graph Matrix (Crucial for when your Llama Mascot is shared) -->
-    <meta property="og:title" content="Article Title | Llama Dev Builds" />
+    <!-- 3. Open Graph Matrix for the Hub -->
+    <meta
+      property="og:title"
+      content="Llama Dev Builds | Zero-Bloat Web Development"
+    />
     <meta
       property="og:description"
-      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+      content="High-performance UI components and technical web development deep-dives."
     />
+    <!-- Update this image URL to a general brand image when ready -->
     <meta
       property="og:image"
       content="https://llamadevbuilds.com/assets/llama-og-image.jpg"
     />
-    <meta property="og:url" content="https://llamadevbuilds.com/article-slug" />
-    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://llamadevbuilds.com/" />
+    <meta property="og:type" content="website" />
 
-    <!-- GA4 Tag (Async execution prevents render-blocking) -->
+    <!-- 4. FOUC Prevention Script (Must execute before DOM paints) -->
+    <script>
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "dark" || (!currentTheme && prefersDark)) {
+        document.documentElement.classList.add("dark-mode");
+      }
+    </script>
+
+    <!-- 5. GA4 Tag -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
@@ -48,7 +58,7 @@
       gtag("config", "G-XXXXXXXXXX");
     </script>
 
-    <!-- JSON-LD Schema will be injected here -->
+    <!-- 6. JSON-LD Hub Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -69,42 +79,80 @@
             "url": "https://llamadevbuilds.com",
             "name": "Llama Dev Builds",
             "publisher": { "@id": "https://llamadevbuilds.com/#organization" }
-          },
-          {
-            "@type": "BlogPosting",
-            "@id": "https://llamadevbuilds.com/article-slug#blogpost",
-            "headline": "Article Title",
-            "image": "https://llamadevbuilds.com/assets/llama-og-hero.jpg",
-            "datePublished": "2026-09-01T08:00:00-05:00",
-            "dateModified": "2026-09-01T08:00:00-05:00",
-            "author": {
-              "@type": "Person",
-              "name": "Developer Llama"
-            },
-            "publisher": { "@id": "https://llamadevbuilds.com/#organization" },
-            "mainEntityOfPage": { "@id": "https://llamadevbuilds.com/#website" }
           }
         ]
       }
     </script>
   </head>
-  <body>
-    <header class="llama-header">
+
+  <body id="top">
+    <!-- STICKY NAVBAR -->
+    <header class="llama-header navbar">
       <nav class="llama-nav">
         <a href="/" class="logo">
           <img
             src="/assets/llama-logo.svg"
             alt="Llama Dev Builds Logo"
-            style="height: 40px; width: auto"
+            width="40"
+            height="40"
           />
           <span>Llama Dev Builds</span>
         </a>
 
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Builds</a></li>
-          <li><a href="#">Articles</a></li>
-        </ul>
+        <!-- Group the links and toggle button together -->
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/builds.html">Builds</a></li>
+            <li><a href="/articles.html">Articles</a></li>
+          </ul>
+
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <!-- SUN ICON (Hidden in Dark Mode) -->
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+
+            <!-- MOON ICON (Hidden in Light Mode) -->
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
 
         <button class="hamburger" aria-label="Toggle navigation">
           <span class="line"></span>
@@ -114,20 +162,88 @@
       </nav>
     </header>
 
-    <main>
-      <article>
-        <header>
-          <h1>Llama Dev Builds - Incoming...</h1>
-          <time datetime="2026-09-01">September 1, 2026</time>
-        </header>
-        <section class="content">
-          <!-- Article text, code snippets, and custom Llama diagrams -->
-        </section>
-      </article>
+    <main class="hub-container">
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <h1>Stop the Bloat. Master the Fundamentals.</h1>
+        <p>
+          High-performance UI components and technical deep-dives built
+          exclusively with HTML, CSS, and Vanilla JavaScript.
+        </p>
+      </section>
+
+      <!-- RECENT ARTICLES GRID -->
+      <section class="article-feed">
+        <h2>Latest Technical Builds</h2>
+
+        <div class="grid-layout">
+          <!-- Article Card 1 -->
+          <a href="/responsive-navbar-vanilla-js.html" class="article-card">
+            <div class="card-content">
+              <span class="category-tag">Vanilla JS</span>
+              <h3>How to Build a Responsive Navbar Using Vanilla JS</h3>
+              <p>
+                Stop loading heavy frameworks for basic UI. Learn how to build a
+                fully responsive, hardware-accelerated navbar.
+              </p>
+              <span class="read-more">Read the build &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Article Card 2 -->
+          <a
+            href="/vanilla-js-dark-mode-toggle-localstorage.html"
+            class="article-card"
+          >
+            <div class="card-content">
+              <span class="category-tag">Vanilla JS</span>
+              <h3>
+                How to Build a Dark Mode Toggle in Vanilla JS (with
+                LocalStorage)
+              </h3>
+              <p>
+                Stop tanking your FCP with bloated npm packages. Build a
+                lightning-fast, persistent dark mode toggle natively.
+              </p>
+              <span class="read-more">Read the build &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-      <!-- Footer Links & Copyright -->
+      <div class="footer-content">
+        <p>
+          &copy; 2026 Llama Dev Builds. Built with Vanilla JS and Zero Bloat.
+        </p>
+        <a href="#top" class="scroll-to-top" aria-label="Scroll back to top"
+          >&uarr; Back to Top</a
+        >
+      </div>
     </footer>
+
+    <!-- DARK MODE & UI LOGIC -->
+    <script>
+      // Theme Toggle Logic
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      themeToggleBtn.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark-mode");
+        const theme = document.documentElement.classList.contains("dark-mode")
+          ? "dark"
+          : "light";
+        localStorage.setItem("theme", theme);
+      });
+
+      // Mobile Hamburger Logic (Placeholder for your existing logic)
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      if (hamburger) {
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+        });
+      }
+    </script>
   </body>
 </html>

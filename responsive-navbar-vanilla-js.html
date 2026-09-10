@@ -3,41 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1. Primary SEO -->
     <title>
       How to Build a Responsive Navbar Using Vanilla JS | Llama Dev Builds
     </title>
     <meta
       name="description"
-      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+      content="Stop loading heavy frameworks for basic UI. Learn how to build a fully responsive, hardware-accelerated navbar using pure HTML, CSS, and Vanilla JavaScript."
     />
 
-    <!-- Preload Critical Assets -->
+    <!-- 2. Preload Critical Assets -->
     <link rel="preload" href="/css/style.css" as="style" />
 
-    <!-- 1. Load External Libraries FIRST -->
+    <!-- External Libraries FIRST, Custom Styles LAST -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
       rel="stylesheet"
     />
-
-    <!-- 2. Load Your Custom Styles LAST so they override the libraries -->
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <!-- Open Graph Matrix (Crucial for when your Llama Mascot is shared) -->
-    <meta property="og:title" content="Article Title | Llama Dev Builds" />
+    <!-- 3. Open Graph Matrix -->
+    <meta
+      property="og:title"
+      content="How to Build a Responsive Navbar Using Vanilla JS"
+    />
     <meta
       property="og:description"
-      content="A highly optimized Vanilla JS and technical SEO tutorial for modern web developers."
+      content="Stop loading heavy frameworks for basic UI. Learn how to build a fully responsive, hardware-accelerated navbar."
     />
     <meta
       property="og:image"
       content="https://llamadevbuilds.com/assets/og-responsive-navbar.jpg"
     />
-    <meta property="og:url" content="https://llamadevbuilds.com/article-slug" />
+    <meta
+      property="og:url"
+      content="https://llamadevbuilds.com/responsive-navbar-vanilla-js.html"
+    />
     <meta property="og:type" content="article" />
 
-    <!-- GA4 Tag (Async execution prevents render-blocking) -->
+    <!-- 4. FOUC Prevention Script (Must execute before DOM paints) -->
+    <script>
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "dark" || (!currentTheme && prefersDark)) {
+        document.documentElement.classList.add("dark-mode");
+      }
+    </script>
+
+    <!-- 5. GA4 Tag -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
@@ -51,52 +68,109 @@
       gtag("config", "G-XXXXXXXXXX");
     </script>
 
-    <!-- JSON-LD Schema will be injected here -->
+    <!-- 6. JSON-LD TechArticle Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://llamadevbuilds.com/responsive-navbar-vanilla-js"
-        },
+        "@type": "TechArticle",
         "headline": "How to Build a Responsive Navbar Using Vanilla JS",
         "description": "Stop loading heavy frameworks for basic UI. Learn how to build a fully responsive, hardware-accelerated navbar using pure HTML, CSS, and Vanilla JavaScript.",
-        "image": "https://llamadevbuilds.com/assets/og-responsive-navbar.jpg",
+        "image": ["https://llamadevbuilds.com/assets/og-responsive-navbar.jpg"],
         "author": {
           "@type": "Person",
-          "name": "Developer Llama"
+          "name": "Llama Dev Builds",
+          "url": "https://llamadevbuilds.com"
         },
         "publisher": {
           "@type": "Organization",
           "name": "Llama Dev Builds",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://llamadevbuilds.com/assets/llama-logo.png"
+            "url": "https://llamadevbuilds.com/favicon.png"
           }
         },
         "datePublished": "2026-09-02T08:00:00-05:00",
-        "dateModified": "2026-09-02T08:00:00-05:00"
+        "dateModified": "2026-09-02T08:00:00-05:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://llamadevbuilds.com/responsive-navbar-vanilla-js.html"
+        },
+        "keywords": "vanilla js responsive navbar, html css mobile menu, hardware accelerated css menu",
+        "articleSection": "Web Development",
+        "dependencies": "None",
+        "proficiencyLevel": "Beginner to Intermediate"
       }
     </script>
   </head>
-  <body>
-    <header class="llama-header">
+
+  <body id="top">
+    <!-- STICKY NAVBAR -->
+    <header class="llama-header navbar">
       <nav class="llama-nav">
         <a href="/" class="logo">
           <img
             src="/assets/llama-logo.svg"
             alt="Llama Dev Builds Logo"
-            style="height: 40px; width: auto"
+            width="40"
+            height="40"
           />
           <span>Llama Dev Builds</span>
         </a>
 
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Builds</a></li>
-          <li><a href="#">Articles</a></li>
-        </ul>
+        <!-- Group the links and toggle button together -->
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/builds.html">Builds</a></li>
+            <li><a href="/articles.html">Articles</a></li>
+          </ul>
+
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <!-- SUN ICON (Hidden in Dark Mode) -->
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+
+            <!-- MOON ICON (Hidden in Light Mode) -->
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
 
         <button class="hamburger" aria-label="Toggle navigation">
           <span class="line"></span>
@@ -106,13 +180,20 @@
       </nav>
     </header>
 
-    <main>
+    <main class="article-container">
       <article>
-        <header>
+        <!-- ARTICLE HEADER -->
+        <header class="article-header">
           <h1>How to Build a Responsive Navbar Using Vanilla JS</h1>
-          <time class="meta-date" datetime="2026-09-02">September 2, 2026</time>
+          <div class="article-meta">
+            <span
+              >Last Updated:
+              <time datetime="2026-09-02">September 2, 2026</time></span
+            >
+          </div>
         </header>
-        <section class="content">
+
+        <section class="article-content">
           <!-- SECTION 1: The Hook -->
           <p>
             Most developers spend a lot of time reading documentation for a
@@ -126,8 +207,7 @@
             have become so conditioned to npm install our way out of simple
             problems that we pull in massive libraries for basic UI elements.
             Bringing Bootstrap into your project JUST to handle a mobile menu
-            isn’t just overkill -
-            <strong>it’s a performance crime</strong>.
+            isn’t just overkill - <strong>it’s a performance crime</strong>.
           </p>
           <p>
             Every unnecessary dependency directly affects your application’s
@@ -163,19 +243,14 @@
             we build a site that looks fine to us, but is completely broken for
             assistive technologies.
           </p>
-          <p>
-            Add this inside the <code>&lt;body&gt;</code> tag in your existing
-            HTML file:
-          </p>
 
-          <!-- NOTE: You must escape the < and > brackets inside code blocks so the browser doesn't try to render them! -->
           <pre><code class="language-html">
 &lt;!-- ** Existing Code ** --&gt;
 &lt;header class="llama-header"&gt;
   &lt;nav class="llama-nav"&gt;
     &lt;a href="#" class="logo"&gt;
       &lt;!-- Your SVG Logo goes here --&gt;
-      &lt;span&gt;LlamaDevBuilds&lt;span&gt;
+      &lt;span&gt;LlamaDevBuilds&lt;/span&gt;
     &lt;/a&gt;
     
     &lt;ul class="nav-links"&gt;
@@ -191,7 +266,7 @@
   &lt;/nav&gt;
 &lt;/header&gt;
 &lt;!-- ** Existing Code ** --&gt;
-    </code></pre>
+          </code></pre>
 
           <h3>The Power of &lt;nav&gt;</h3>
           <p>
@@ -204,6 +279,7 @@
             >. It allows users navigating with assistive tools to go straight to
             the links without having to tab through the rest of the page.
           </p>
+
           <h3>Why a True &lt;button&gt; Matters</h3>
           <p>
             Have you noticed the hamburger menu trigger? It’s an actual HTML
@@ -214,8 +290,8 @@
             <code>&lt;div&gt;</code> will require us to manually code all of the
             keyboard behavior with JavaScript event listeners.
           </p>
-          <h3>Screen Readers and aria-label</h3>
 
+          <h3>Screen Readers and aria-label</h3>
           <p>
             Inside the button, we have three empty
             <code>&lt;span&gt;</code> elements which we use to draw the physical
@@ -320,11 +396,13 @@ body {
   background-color: var(--text-light);
   border-radius: 2px;
 } 
-    </code></pre>
+          </code></pre>
+
           <p>
             Here is the Mobile Media Query for
             <strong>mobile-responsiveness</strong>:
           </p>
+
           <pre><code class="language-css">
 /* Mobile Transition (Media Query) */
 @media (max-width: 768px) {
@@ -343,7 +421,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding-top: 2rem;
-    width: 50%; /* Adjust the width of the mobile menu (75%, 100%) */
+    width: 50%; /* Adjust the width of the mobile menu */
     transform: translateX(100%);
     transition: transform 0.3s ease-in;
   }
@@ -352,7 +430,8 @@ body {
     transform: translateX(0%);
   }
 }
-    </code></pre>
+          </code></pre>
+
           <h3>The Performance Magic: transform: translateX(100%)</h3>
           <p>
             Look closely at the hidden state of our <code>.nav-links</code>. To
@@ -366,7 +445,7 @@ body {
           <p>
             As a developer, you have options for how you animate elements. You
             could easily hide the menu by setting <code>right: -50%</code> or
-            animating <code>width: 0</code>. <strong>Do not do that</strong>.
+            animating <code>width: 0</code>. <strong>Don't do that</strong>.
           </p>
           <p>
             Animating properties like <code>top</code>, <code>right</code>,
@@ -376,8 +455,7 @@ body {
             heavy battery drain on mobile devices.
           </p>
           <p>
-            By using
-            <code>transform</code>, we trigger
+            By using <code>transform</code>, we trigger
             <strong>hardware acceleration</strong>. The browser passes the
             animation workload directly to the device’s GPU (Graphics Processing
             Unit). The GPU treats the menu layer like an isolated layer and
@@ -406,10 +484,8 @@ const navLinks = document.querySelector('.nav-links');
 hamburger.addEventListener('click', () => {
     // Toggle Nav
     navLinks.classList.toggle('nav-active');
-    
-    // If you choose to use the "Bonus Tip: Animate Hamburger lines to an X", add here.
 });
-    </code></pre>
+          </code></pre>
           <p>That’s it. A few lines of executable code.</p>
           <p>
             When we use heavy component libraries or modern frontend frameworks,
@@ -423,6 +499,7 @@ hamburger.addEventListener('click', () => {
             JavaScript, we let our script do one <strong>simple</strong> job:
             toggle the <code>.nav-active</code> class.
           </p>
+
           <h3>Letting CSS Do the Heavy Lifting</h3>
           <p>
             This architecture honors the true
@@ -455,6 +532,7 @@ hamburger.addEventListener('click', () => {
             First, update your JavaScript to toggle an extra
             <code>.toggle</code> class on the hamburger button itself:
           </p>
+
           <pre><code class="language-javascript">
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('nav-active');
@@ -462,12 +540,13 @@ hamburger.addEventListener('click', () => {
     // Add this line to animate Hamburger lines to an X
     hamburger.classList.toggle('is-active');
 });
-    </code></pre>
+          </code></pre>
           <p>
             Next, add these utility classes to your CSS. We will use CSS
             <code>transform</code> to fade out the middle line and rotate the
             top and bottom lines:
           </p>
+
           <pre><code class="language-css">
 /* Add transition to the lines for smooth animation */
 /* Add to existing '.hamburger .line' */
@@ -485,7 +564,8 @@ hamburger.addEventListener('click', () => {
 .hamburger.is-active .line:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
-</code></pre>
+          </code></pre>
+
           <h3>Why This Works</h3>
           <p>
             By targeting the <code>:nth-child</code> selectors, we manipulate
@@ -496,6 +576,7 @@ hamburger.addEventListener('click', () => {
             this interaction is completely hardware-accelerated and won't cause
             layout lag.
           </p>
+
           <!-- SECTION 6: Conclusion -->
           <h2>Conclusion</h2>
           <p>
@@ -524,37 +605,49 @@ hamburger.addEventListener('click', () => {
           </p>
 
           <!-- SECTION 7: The Monetization CTA -->
-          <div class="cta-box">
+          <section class="cta-box">
             <h3>Stop coding from scratch.</h3>
             <p>
               This <strong>navbar</strong> is just one piece of the puzzle. I’ve
               compiled 25+ fully responsive, 100/100 Core Web Vitals optimized
               components into the <strong>LlamaDev Vanilla UI Kit</strong>.
             </p>
-            <a
-              href="/builds/vanilla-ui-kit"
-              style="color: var(--accent-green); font-weight: bold"
-              >[ Grab the Complete Build Here -> ]</a
+            <a href="/builds.html" class="cta-btn"
+              >Grab the Complete Build Here &rarr;</a
             >
-          </div>
+          </section>
         </section>
       </article>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-      <!-- Footer Links & Copyright -->
-      <footer
-        style="
-          text-align: center;
-          padding: 40px 20px;
-          color: var(--text-meta);
-          font-size: 0.9rem;
-        "
-      >
-        <p>&copy; 2026 LlamaDevBuilds. Built with Vanilla JS and Zero Bloat.</p>
-      </footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2026 Llama Dev Builds. Built with Vanilla JS and Zero Bloat.
+        </p>
+        <a href="#top" class="scroll-to-top" aria-label="Scroll back to top"
+          >&uarr; Back to Top</a
+        >
+      </div>
     </footer>
-    <script src="/js/main.js"></script>
+
+    <!-- ASSETS & SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    <!-- DARK MODE & UI LOGIC -->
+    <script>
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark-mode");
+          const theme = document.documentElement.classList.contains("dark-mode")
+            ? "dark"
+            : "light";
+          localStorage.setItem("theme", theme);
+        });
+      }
+    </script>
   </body>
 </html>

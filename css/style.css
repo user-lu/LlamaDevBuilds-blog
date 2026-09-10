@@ -2,18 +2,24 @@
    1. ROOT VARIABLES (THE BRAND SYSTEM)
    ========================================= */
 :root {
-  /* Brand Palette */
-  --bg-charcoal: #202124;
-  --bg-page: #fafafa;
-  --accent-green: #39ff14;
+  /* Dynamic Backgrounds (Light Mode Default) */
+  --bg-color: #ffffff;
+  --bg-secondary: #fafafa;
 
   /* Typography Colors */
   --text-main: #333333;
-  --text-light: #f4f4f4;
-  --text-meta: #5c6682; /* WCAG Accessible contrast */
+  --text-meta: #5c6682;
   --code-pink: #d63384;
 
-  /* Global Spacing Scale (Use these instead of random pixel values) */
+  /* Accents & Borders */
+  --accent-green: #2bbd0f; /* Darker for WCAG contrast on white */
+  --border-color: #eaeaea;
+
+  /* Navbar (Stays dark in light mode to pop the Llama logo) */
+  --navbar-bg: #1e1e24;
+  --navbar-text: #ffffff;
+
+  /* Global Spacing Scale */
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
@@ -22,17 +28,57 @@
 }
 
 /* =========================================
-   2. GLOBAL RESET & BOX SIZING
+   2. DARK MODE OVERRIDES
+   ========================================= */
+html.dark-mode {
+  /* Deep dark backgrounds */
+  --bg-color: #121215;
+  --bg-secondary: #1e1e24; /* Brand Charcoal for cards/code blocks */
+
+  /* Typography swaps */
+  --text-main: #f4f4f4;
+  --text-meta: #a1a1aa;
+
+  /* Accents & Borders */
+  --accent-green: #39ff14; /* True Hacker Green for dark mode */
+  --border-color: #333333;
+
+  /* Navbar shifts slightly darker to separate from page */
+  --navbar-bg: #0a0a0c;
+  --navbar-text: #f4f4f4;
+}
+
+/* Default Light Mode: Show Moon (to switch TO dark), Hide Sun */
+.sun-icon {
+  display: none;
+}
+.moon-icon {
+  display: block;
+}
+
+/* Dark Mode: Show Sun (to switch TO light), Hide Moon */
+html.dark-mode .sun-icon {
+  display: block;
+}
+html.dark-mode .moon-icon {
+  display: none;
+}
+
+/* =========================================
+   3. GLOBAL RESET & BOX SIZING
    ========================================= */
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Crucial: padding won't expand element widths */
+  box-sizing: border-box;
 }
 
-/* Base element resets */
+html {
+  scroll-behavior: smooth; /* Native smooth scrolling */
+}
+
 img,
 picture,
 svg {
@@ -53,27 +99,28 @@ a {
 }
 
 /* =========================================
-   3. GLOBAL TYPOGRAPHY
+   4. GLOBAL TYPOGRAPHY & TRANSITIONS
    ========================================= */
 body {
-  /* System font stack for maximum performance and crisp OS-level rendering */
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
-  background-color: var(--bg-page);
+  background-color: var(--bg-color);
   color: var(--text-main);
-
-  /* Text rendering optimization */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* The buttery-smooth color crossfade */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-/* Headers System */
 h1,
 h2,
 h3,
 h4 {
-  color: var(--bg-charcoal);
+  color: var(--text-main);
   line-height: 1.2;
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
@@ -83,13 +130,12 @@ h1 {
   font-size: 2.8rem;
   font-weight: 800;
   letter-spacing: -0.05rem;
-  margin-top: 0; /* Prevents awkward gap at the top of the page */
+  margin-top: 0;
 }
 
 h2 {
   font-size: 2rem;
   font-weight: 700;
-  /* Premium Design Touch: A subtle Hacker Green underline to anchor sections */
   border-bottom: 2px solid var(--accent-green);
   padding-bottom: var(--space-sm);
   display: inline-block;
@@ -100,44 +146,53 @@ h3 {
   font-weight: 600;
 }
 
-/* Paragraph System */
 p {
   font-size: 1.15rem;
   line-height: 1.8;
   margin-bottom: var(--space-lg);
 }
 
-/* The Meta Date */
-.meta-date {
-  display: block;
-  font-family: "Courier New", Courier, monospace;
+/* Article Metadata */
+.article-meta {
   color: var(--text-meta);
   font-size: 0.9rem;
-  margin-bottom: var(--space-lg);
+  margin-top: 10px;
+  margin-bottom: 2rem;
+  font-family: "Courier New", Courier, monospace;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }
 
+.meta-divider {
+  margin: 0 10px;
+}
+
 /* =========================================
-   4. STRUCTURAL LAYOUT
+   5. STRUCTURAL LAYOUT
    ========================================= */
-main {
-  /* The optimal line-length constraint for human readability */
+.article-container {
   max-width: 800px;
-
-  /* Centers the container horizontally with top/bottom breathing room */
   margin: var(--space-xxl) auto;
+  padding: 0 var(--space-lg);
+}
 
-  /* Prevents text from touching the absolute edge on mobile devices */
+.hub-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 var(--space-lg);
 }
 
 /* =========================================
-   5. NAVIGATION & HEADER
+   6. NAVIGATION & HEADER
    ========================================= */
 .llama-header {
-  background-color: var(--bg-charcoal);
+  background-color: var(--navbar-bg);
   padding: var(--space-md) var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
 }
 
 .llama-nav {
@@ -150,28 +205,64 @@ main {
 
 .logo {
   display: flex;
-  align-items: center; /* Vertically centers the Llama and the text */
-  gap: 12px; /* Creates perfect, scalable spacing between them */
+  align-items: center;
+  gap: 12px;
   color: var(--accent-green);
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-/* Desktop Navigation */
 .nav-links {
   display: flex;
   list-style: none;
   gap: var(--space-xl);
+  align-items: center;
 }
 
 .nav-links a {
-  color: var(--text-light);
+  color: var(--navbar-text);
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: var(--accent-green);
+}
+
+/* Flex the new wrapper on desktop */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+/* Ensure the nav-actions don't break the mobile menu styling */
+@media (max-width: 768px) {
+  .nav-actions {
+    gap: var(--space-md); /* Tighter spacing for mobile */
+  }
+}
+
+/* Theme Toggle Button */
+.theme-btn {
+  background: transparent;
+  color: var(--navbar-text);
+  border: 1px solid var(--accent-green);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+}
+
+.theme-btn:hover {
+  background-color: var(--accent-green);
+  color: #1e1e24;
 }
 
 /* Mobile Hamburger Trigger */
@@ -187,35 +278,34 @@ main {
 .hamburger .line {
   width: 25px;
   height: 3px;
-  background-color: var(--text-light);
+  background-color: var(--navbar-text);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
-/* The Mobile Transition Architecture */
 @media (max-width: 768px) {
-  /* Ensure the hamburger button ALWAYS floats above the open menu */
   .hamburger {
     display: flex;
-    position: relative; /* Required for z-index to work */
+    position: relative;
     z-index: 101;
   }
+
   .nav-links {
-    position: fixed; /* Locks it to the screen so it doesn't scroll away */
-    top: 0; /* Starts at the absolute top of the viewport */
+    position: fixed;
+    top: 0;
     right: 0;
     height: 100vh;
-    width: 60%; /* Slightly wider for better UX */
-    background-color: var(--bg-charcoal);
+    width: 60%;
+    background-color: var(--navbar-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 100px; /* Pushes the links down so the "X" doesn't cover them */
+    padding-top: 100px;
     transform: translateX(100%);
     transition: transform 0.3s ease-in;
-    z-index: 100; /* Sits directly beneath the z-index: 101 hamburger */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Adds a premium drop-shadow edge */
+    z-index: 100;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   }
 
   .nav-links.nav-active {
@@ -235,11 +325,10 @@ main {
 }
 
 /* =========================================
-   6. CODE BLOCKS
+   7. CODE BLOCKS
    ========================================= */
 pre {
-  /* The !important tag forces Prism to use your exact Charcoal */
-  background-color: var(--bg-charcoal) !important;
+  background-color: #1e1e24 !important; /* Always charcoal */
   padding: var(--space-lg) !important;
   border-radius: 8px;
   overflow-x: auto;
@@ -250,11 +339,11 @@ pre {
 code {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.95rem;
+  color: #f4f4f4; /* Light text for dark code blocks */
 }
 
-/* Inline code formatting for keywords inside paragraphs */
 p code {
-  background-color: #e9ecef;
+  background-color: var(--bg-secondary);
   color: var(--code-pink);
   padding: 2px 6px;
   border-radius: 4px;
@@ -262,36 +351,132 @@ p code {
 }
 
 /* =========================================
-   7. COMPONENTS (Monetization & Alerts)
+   8. COMPONENTS & FOOTER
    ========================================= */
 .cta-box {
-  background-color: var(--bg-charcoal);
-  color: var(--text-light);
+  background-color: var(--bg-secondary);
   padding: var(--space-lg);
   border-radius: 8px;
   border-left: 4px solid var(--accent-green);
   margin: var(--space-xl) 0;
+  border: 1px solid var(--border-color);
 }
 
 .cta-box h3 {
   color: var(--accent-green);
   margin-top: 0;
   margin-bottom: var(--space-sm);
-  border-bottom: none; /* Overrides the global h3 styling */
+  border-bottom: none;
 }
 
-.cta-box p {
-  color: var(--text-light); /* Overrides global paragraph color */
-  margin-bottom: var(--space-md);
-}
-
-.cta-box a {
+.cta-box a.cta-btn {
   color: var(--accent-green);
   font-weight: bold;
   text-decoration: none;
   transition: opacity 0.2s ease;
+  display: inline-block;
 }
 
-.cta-box a:hover {
+.cta-box a.cta-btn:hover {
   opacity: 0.8;
+}
+
+/* Footer & Scroll */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-meta);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--space-xxl);
+}
+
+.scroll-to-top {
+  display: inline-block;
+  color: var(--accent-green);
+  text-decoration: none;
+  font-weight: bold;
+  font-family: monospace;
+  margin-top: var(--space-md);
+}
+
+.scroll-to-top:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   9. HUB & HOMEPAGE LAYOUT
+   ========================================= */
+.hero {
+  text-align: center;
+  padding: var(--space-xxl) 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--space-xl);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  letter-spacing: -0.05rem;
+  margin-bottom: var(--space-md);
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--text-meta);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xxl);
+}
+
+.article-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  display: block;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-tag {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  color: var(--accent-green);
+  background-color: #1e1e24;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.article-card h3 {
+  margin-top: var(--space-md);
+  font-size: 1.4rem;
+  margin-bottom: var(--space-sm);
+  color: var(--text-main);
+}
+
+.article-card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-meta);
+  margin-bottom: var(--space-md);
+}
+
+.read-more {
+  color: var(--text-main);
+  font-weight: bold;
+  font-size: 0.95rem;
 }

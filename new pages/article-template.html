@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1. Primary SEO -->
+    <title>
+      How to Build a Dark Mode Toggle in Vanilla JS (with LocalStorage) | Llama
+      Dev Builds
+    </title>
+    <meta
+      name="description"
+      content="Stop tanking your FCP with bloated npm packages. Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables."
+    />
+
+    <!-- 2. Open Graph & Social Cards -->
+    <meta
+      property="og:title"
+      content="How to Build a Dark Mode Toggle in Vanilla JS"
+    />
+    <meta
+      property="og:description"
+      content="Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables."
+    />
+    <meta
+      property="og:image"
+      content="https://llamadevbuilds.com/assets/og-dark-mode-YOUR-FILE-NAME.jpg"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://llamadevbuilds.com/vanilla-js-dark-mode-toggle-localstorage.html"
+    />
+
+    <!-- 3. Assets & Styling -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+
+    <!-- 4. FOUC Prevention Script (MUST BE IN HEAD) -->
+    <script>
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "dark" || (!currentTheme && prefersDark)) {
+        document.body.classList.add("dark-mode");
+      }
+    </script>
+
+    <!-- 5. Technical SEO JSON-LD Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "How to Build a Dark Mode Toggle in Vanilla JS (with LocalStorage)",
+        "description": "Stop tanking your FCP with bloated npm packages. Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables.",
+        "image": [
+          "https://llamadevbuilds.com/assets/og-dark-mode-YOUR-FILE-NAME.jpg"
+        ],
+        "author": {
+          "@type": "Person",
+          "name": "Llama Dev Builds",
+          "url": "https://llamadevbuilds.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Llama Dev Builds",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://llamadevbuilds.com/favicon.png"
+          }
+        },
+        "datePublished": "2026-09-08T08:00:00-05:00",
+        "dateModified": "2026-09-09T15:00:00-05:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://llamadevbuilds.com/vanilla-js-dark-mode-toggle-localstorage.html"
+        },
+        "keywords": "vanilla js dark mode toggle localstorage, dark mode css variables, vanilla javascript theme switcher"
+      }
+    </script>
+  </head>
+
+  <!-- Add ID for the Scroll-to-Top anchor -->
+  <body id="top">
+    <!-- STICKY NAVBAR -->
+    <header class="llama-header navbar">
+      <nav class="llama-nav">
+        <a href="/" class="logo">
+          <img
+            src="/assets/llama-logo.svg"
+            alt="Llama Dev Builds Logo"
+            width="40"
+            height="40"
+          />
+          <span>Llama Dev Builds</span>
+        </a>
+
+        <!-- Group the links and toggle button together -->
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/builds.html">Builds</a></li>
+            <li><a href="/articles.html">Articles</a></li>
+          </ul>
+
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <!-- SUN ICON (Hidden in Dark Mode) -->
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+
+            <!-- MOON ICON (Hidden in Light Mode) -->
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <button class="hamburger" aria-label="Toggle navigation">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- MAIN ARTICLE CONTAINER -->
+    <main class="article-container">
+      <article>
+        <!-- ARTICLE HEADER -->
+        <header class="article-header">
+          <h1>
+            How to Build a Dark Mode Toggle in Vanilla JS (with LocalStorage)
+          </h1>
+
+          <!-- Metadata: Dates -->
+          <div class="article-meta">
+            <span
+              >Published: <time datetime="2026-09-08">Sep 8, 2026</time></span
+            >
+            <span class="meta-divider">•</span>
+            <span
+              >Last Updated:
+              <time datetime="2026-09-09">Sep 9, 2026</time></span
+            >
+          </div>
+        </header>
+
+        <!-- ARTICLE CONTENT -->
+        <section class="article-content">
+          <p>
+            Let’s talk about one of the most requested features on the modern
+            web: Dark Mode...
+          </p>
+
+          <h2>Why You Don't Need a Framework for Dark Mode</h2>
+          <p>Your content goes here...</p>
+
+          <!-- Example Prism.js Code Block -->
+          <pre><code class="language-css">
+/* Code goes here */
+        </code></pre>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="cta-box">
+          <h3>Stop fighting heavy frameworks.</h3>
+          <p>
+            If you want to master vanilla web development and speed up your
+            workflow, check out my premium, zero-bloat UI component kits.
+          </p>
+          <a href="/builds.html" class="cta-btn">Explore the UI Kits &rarr;</a>
+        </section>
+      </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2026 Llama Dev Builds. Built with Vanilla JS.</p>
+
+        <!-- LIGHTWEIGHT SCROLL TO TOP -->
+        <a href="#top" class="scroll-to-top" aria-label="Scroll back to top">
+          &uarr; Back to Top
+        </a>
+      </div>
+    </footer>
+
+    <!-- PRISM.JS SCRIPT (Bottom of body to prevent render blocking) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- YOUR CUSTOM JS LOGIC -->
+    <script>
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const theme = document.body.classList.contains("dark-mode")
+          ? "dark"
+          : "light";
+        localStorage.setItem("theme", theme);
+      });
+    </script>
+  </body>
+</html>

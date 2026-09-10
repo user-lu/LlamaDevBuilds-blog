@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1. Primary SEO -->
+    <title>
+      How to Build a Dark Mode Toggle in Vanilla JS | Llama Dev Builds
+    </title>
+    <meta
+      name="description"
+      content="Stop tanking your FCP with bloated npm packages. Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables."
+    />
+
+    <!-- 2. Preload Critical Assets -->
+    <link rel="preload" href="/css/style.css" as="style" />
+
+    <!-- External Libraries FIRST, Custom Styles LAST -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- 3. Open Graph Matrix -->
+    <meta
+      property="og:title"
+      content="How to Build a Dark Mode Toggle in Vanilla JS"
+    />
+    <meta
+      property="og:description"
+      content="Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables."
+    />
+    <meta
+      property="og:image"
+      content="https://llamadevbuilds.com/assets/og-darkmode.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://llamadevbuilds.com/vanilla-js-dark-mode-toggle-localstorage.html"
+    />
+    <meta property="og:type" content="article" />
+
+    <!-- 4. FOUC Prevention Script (Must execute before DOM paints) -->
+    <script>
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "dark" || (!currentTheme && prefersDark)) {
+        document.documentElement.classList.add("dark-mode");
+      }
+    </script>
+
+    <!-- 5. GA4 Tag -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
+    </script>
+
+    <!-- 6. JSON-LD TechArticle Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "How to Build a Dark Mode Toggle in Vanilla JS (with LocalStorage)",
+        "description": "Stop tanking your FCP with bloated npm packages. Build a lightning-fast, persistent dark mode toggle in Vanilla JS using localStorage and CSS variables.",
+        "image": ["https://llamadevbuilds.com/assets/og-darkmode.jpg"],
+        "author": {
+          "@type": "Person",
+          "name": "Llama Dev Builds",
+          "url": "https://llamadevbuilds.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Llama Dev Builds",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://llamadevbuilds.com/favicon.png"
+          }
+        },
+        "datePublished": "2026-09-08T08:00:00-05:00",
+        "dateModified": "2026-09-08T08:00:00-05:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://llamadevbuilds.com/vanilla-js-dark-mode-toggle-localstorage.html"
+        },
+        "keywords": "vanilla js dark mode toggle localstorage, dark mode css variables, vanilla javascript theme switcher",
+        "articleSection": "Web Development",
+        "dependencies": "None",
+        "proficiencyLevel": "Beginner to Intermediate"
+      }
+    </script>
+  </head>
+
+  <body id="top">
+    <!-- STICKY NAVBAR -->
+    <header class="llama-header navbar">
+      <nav class="llama-nav">
+        <a href="/" class="logo">
+          <img
+            src="/assets/llama-logo.svg"
+            alt="Llama Dev Builds Logo"
+            width="40"
+            height="40"
+          />
+          <span>Llama Dev Builds</span>
+        </a>
+
+        <!-- Group the links and toggle button together -->
+        <div class="nav-actions">
+          <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/builds.html">Builds</a></li>
+            <li><a href="/articles.html">Articles</a></li>
+          </ul>
+
+          <button
+            id="theme-toggle"
+            aria-label="Toggle Dark Mode"
+            class="theme-btn"
+          >
+            <!-- SUN ICON (Hidden in Dark Mode) -->
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+
+            <!-- MOON ICON (Hidden in Light Mode) -->
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <button class="hamburger" aria-label="Toggle navigation">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="article-container">
+      <article>
+        <!-- ARTICLE HEADER -->
+        <header class="article-header">
+          <h1>
+            How to Build a Dark Mode Toggle in Vanilla JS (with LocalStorage)
+          </h1>
+          <div class="article-meta">
+            <span
+              >Last Updated:
+              <time datetime="2026-09-08">September 8, 2026</time></span
+            >
+          </div>
+        </header>
+
+        <section class="article-content">
+          <!-- SECTION 1: The Hook -->
+          <p>
+            Let’s talk about one of the most requested features on the modern
+            web: <strong>Dark Mode</strong>. It is a cool user preference to
+            add, but the way it gets implemented in production is often
+            terrifying.
+          </p>
+          <p>
+            Open up a standard UI library or theme toggler package on npm. Look
+            at the dependency graph and check out the bundle size. Why are we
+            installing a <strong>40kb+ third-party package</strong> just to
+            toggle a couple of hex codes? It’s another performance crime.
+          </p>
+          <p>
+            These scripts have to download and parse before the browser even
+            knows what color background to paint. The result? A horrible user
+            experience where your
+            <strong>First Contentful Paint (FCP)</strong> tanks, or your users
+            get blinded by a sudden flash of bright white light before the dark
+            theme finally kicks in.
+          </p>
+          <p>At Llama Dev Builds, we believe in a better approach.</p>
+          <p>
+            You don't need a massive state management ecosystem or a bulky theme
+            provider framework to swap colors. The native web platform already
+            gives us everything we need. By pairing CSS custom properties with a
+            tiny splash of Vanilla JavaScript and <code>localStorage</code>, we
+            can build a lightning-fast, persistent dark mode toggle that loads
+            instantly and costs <strong>zero bytes</strong> in external
+            dependencies.
+          </p>
+          <p>
+            Let's <strong>build a dark mode toggle in vanilla JS</strong>, the
+            lighter way.
+          </p>
+
+          <!-- SECTION 2: The HTML Architecture -->
+          <h2>The Semantic HTML Button</h2>
+          <p>
+            The foundation of a performant toggle isn't JavaScript. It’s
+            semantic HTML. It is incredibly tempting to grab a generic
+            <code>&lt;div&gt;</code>, slap an <code>onClick</code> handler on
+            it, style it to look like a slider, and call it a day.
+            <strong>Don't do it.</strong>
+          </p>
+          <p>
+            When you build a toggle out of a <code>&lt;div&gt;</code>, you break
+            the web for anyone who isn't using a mouse. A generic
+            <code>&lt;div&gt;</code> cannot be reached using the
+            <code>Tab</code> key by default. It doesn't respond when someone
+            presses <code>Space</code> or <code>Enter</code>. To fix a broken
+            <code>&lt;div&gt;</code> toggle, you would have to manually inject
+            <code>tabindex="0"</code>, code your own keyboard event listeners,
+            and fake the button behavior.
+          </p>
+          <p>
+            Why write extra JavaScript to fix a problem you created yourself?
+          </p>
+          <p>
+            Instead, let’s use the native platform and keep our codebase
+            incredibly <strong>lightweight</strong>:
+          </p>
+
+          <pre><code class="language-html">
+&lt;!-- The Semantic Toggle Button --&gt;
+&lt;button id="theme-toggle" aria-label="Toggle Dark Mode" class="theme-btn"&gt;
+  Toggle Theme
+&lt;/button&gt;
+          </code></pre>
+
+          <h3>Native Benefits for Free</h3>
+          <p>
+            By choosing a true HTML <code>&lt;button&gt;</code> element, the
+            browser automatically grants us perfect keyboard accessibility. Any
+            user navigating your site via keyboard can natively tab straight to
+            this button and activate it with a quick tap of
+            <code>Space</code> or <code>Enter</code>. No extra code required.
+          </p>
+
+          <h3>Giving the Button a Voice: aria-label</h3>
+          <p>
+            Right now, our button contains the text <code>Toggle Theme</code>.
+            But in a real-world layout, you will likely replace that text with a
+            sleek SVG icon—like a sun or a moon.
+          </p>
+          <p>
+            If you delete the text and just leave an icon, a screen reader will
+            encounter the button and announce absolutely nothing to a visually
+            impaired user. By explicitly defining
+            <code>aria-label="Toggle Dark Mode”</code>, we ensure that assistive
+            technologies instantly announce the exact intent of the button,
+            regardless of what visual icon or text sits inside it. Furthermore,
+            clean ARIA attributes provide better contextual signals to search
+            engine crawlers, giving your <strong>technical SEO</strong> a subtle
+            boost.
+          </p>
+
+          <!-- SECTION 3: The CSS -->
+          <h2>The CSS Variable Architecture</h2>
+          <p>
+            Now that our HTML button is accessible, we need a scalable visual
+            system to swap our colors. If you were using a heavy CSS-in-JS
+            ecosystem, you might be tempted to handle this by passing an
+            entirely new theme configuration through a complex JavaScript state
+            object.
+          </p>
+          <p>
+            Instead, we are going to let the browser do the heavy lifting
+            natively using <strong>CSS custom properties</strong> (variables).
+          </p>
+          <p>
+            The strategy is beautifully simple: we define our global color
+            variables on the <code>:root</code> for our default light theme.
+            Then, we declare a <code>.dark-mode</code> class that simply
+            reassigns those exact same variable names to dark-themed colors.
+          </p>
+          <p>Here is the code structure:</p>
+
+          <pre><code class="language-css">
+/* 1. Default Light Theme Variables */
+:root {
+  --bg-color: #FAFAFA;
+  --text-main: #333333;
+  --text-meta: #5C6682;
+}
+
+/* 2. Dark Theme Overrides */
+body.dark-mode {
+  --bg-color: #1E1E24;
+  --text-main: #F4F4F4;
+  --text-meta: #8892B0;
+}
+
+/* 3. Apply Variables & Smooth Transition */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+          </code></pre>
+
+          <h3>Why This Architecture Wins</h3>
+          <p>
+            Notice that we aren't writing duplicate CSS styles for every single
+            element on the page. We aren't creating a separate
+            <code>.dark-mode-header</code> or <code>.dark-mode-text</code> class
+            block.
+          </p>
+          <p>
+            By applying <code>var(--bg-color)</code> and
+            <code>var(--text-main)</code> directly to the
+            <code>&lt;body&gt;</code>, any elements nested inside it
+            automatically inherit those changing values. When JavaScript appends
+            the <code>.dark-mode</code> class to the body, the browser swaps out
+            the root variable values behind the scenes, and the entire page
+            instantly repaints its color scheme.
+          </p>
+
+          <h3>No Harsh Snapping: The Value of transition</h3>
+          <p>
+            If we dropped the variables into place without a transition,
+            toggling the mode would cause the background and text colors to snap
+            <strong>instantly</strong>. On a bright monitor, this harsh contrast
+            shift can feel jarring to a user's eyes.
+          </p>
+          <p>
+            To fix this, we apply a subtle
+            <code
+              >transition: background-color 0.3s ease, color 0.3s ease;</code
+            >
+            to the body element. Now, when the classes change, the browser
+            handles a <strong>buttery-smooth</strong> fade between the light and
+            dark color spaces, giving your web app a highly polished,
+            professional finish without pulling in a bulky animation library.
+          </p>
+
+          <!-- SECTION 4: The Vanilla JS -->
+          <h2>Writing the Vanilla JS Engine</h2>
+          <p>
+            Now that our styling engine is built on CSS variables, we need a
+            lightweight way to toggle that <code>.dark-mode</code> class.
+            Instead of dragging in an external state management package, we are
+            going to write a tiny, high-performance script using pure vanilla
+            JavaScript.
+          </p>
+          <p>
+            Let's break down the logic piece by piece before we stitch the whole
+            thing together.
+          </p>
+
+          <h3>Selecting the DOM Elements</h3>
+          <p>
+            First, we need to grab our accessible button from the
+            <strong>Document Object Model (DOM)</strong> so our code can
+            interact with it.
+          </p>
+
+          <pre><code class="language-javascript">
+// Grab the button from the DOM
+const themeToggleBtn = document.querySelector('#theme-toggle');
+
+// Listen for a click event to toggle the class on the body
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+          </code></pre>
+          <p>
+            Using <code>document.querySelector</code>, we target our specific
+            button ID <code>#theme-toggle</code> and assign it to a stable
+            variable. Next, we attach an event listener to listen for a
+            <code>click</code> interaction. Every single time a user clicks or
+            activates that button with their keyboard, our callback function
+            runs.
+          </p>
+
+          <h3>Toggling the CSS Class</h3>
+          <p>
+            Inside that click handler, we target
+            <code>document.body.classList.toggle('dark-mode');</code>.
+          </p>
+          <p>
+            The <code>toggle()</code> method is a built-in utility that acts
+            like a smart light switch. It reads the current class state of the
+            element. If the <code>&lt;body&gt;</code> does not have the
+            <code>.dark-mode</code> class, it appends it. If the
+            <code>&lt;body&gt;</code> already has the class, it instantly strips
+            it away.
+          </p>
+          <p>
+            This triggers the CSS variable reassignment we built in the previous
+            step, resulting in a smooth color fade.
+          </p>
+
+          <h3>Saving User Preferences with localStorage</h3>
+          <p>
+            Right now, our toggle works perfectly, but there is a major problem:
+            if a user clicks dark mode and refreshes the page, the browser loses
+            that state and reverts back to the default light theme.
+          </p>
+          <p>
+            To fix this and provide a premium user experience, we need to
+            persist their choice. We can do this natively with the browser's
+            <code>localStorage</code> API.
+          </p>
+
+          <pre><code class="language-javascript">
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  
+  // Check if the body currently has the dark-mode class
+  const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  
+  // Save that string to the browser's local storage
+  localStorage.setItem('theme', theme);
+});
+          </code></pre>
+          <p>
+            Here, we add a conditional check right after the toggle occurs. We
+            use a ternary operator to ask the DOM:
+            <em
+              >"Does the body element contain the class
+              <code>dark-mode</code> right now?"</em
+            >
+          </p>
+          <p>
+            If it does, we save the string <code>'dark'</code> to a variable
+            named <code>theme</code>. If it doesn't, we save
+            <code>'light'</code>. Finally, we call
+            <code>localStorage.setItem('theme', theme)</code>. This writes a
+            small key-value pair directly into the user's browser memory that
+            persists even if they close the tab or reboot their machine.
+          </p>
+
+          <!-- SECTION 5: The Bonus Tip -->
+          <h2>Intercepting System Preferences (The Pro Move)</h2>
+          <p>
+            Most basic tutorials stop after setting up an event listener and
+            writing to <code>localStorage</code>. But to build a truly
+            production-ready UI, you need to account for your user's operating
+            system configurations before they even click your toggle button.
+          </p>
+          <p>
+            If a user has set their OS to a system-wide dark mode, your web app
+            should honor that choice out of the box.
+          </p>
+          <p>
+            To elevate our script, we are going to introduce
+            <code>window.matchMedia('(prefers-color-scheme: dark)')</code>. This
+            powerful native API allows JavaScript to read the user's OS-level
+            CSS media query preferences directly.
+          </p>
+          <p>
+            Here is the complete, production-grade script that links our event
+            listeners, storage tracking, and system preference configurations
+            together:
+          </p>
+
+          <pre><code class="language-javascript">
+const themeToggleBtn = document.querySelector('#theme-toggle');
+
+// 1. Check OS system preferences
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// 2. Check for saved user preference in localStorage
+const currentTheme = localStorage.getItem('theme');
+
+// 3. Determine if dark mode should be applied on load
+if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+  document.body.classList.add('dark-mode');
+}
+
+// 4. Handle the button click, toggle, and save
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  
+  const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  localStorage.setItem('theme', theme);
+});
+          </code></pre>
+
+          <h3>Breaking Down the Load State Logic</h3>
+          <p>Look closely at the condition in Step 3:</p>
+          <pre><code class="language-javascript">
+if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches))
+          </code></pre>
+          <p>
+            We're checking two critical things to determine if the
+            <code>.dark-mode</code> class should be added on load:
+          </p>
+          <p>
+            1. <strong>Did they explicitly choose a theme before?</strong> If
+            <code>currentTheme === 'dark'</code>, we respect their previous
+            hardcoded preference regardless of what their system says.
+          </p>
+          <p>
+            2. <strong>Is it their first time visiting?</strong> If there is no
+            item saved in storage <code>(!currentTheme)</code>, we fallback to
+            checking their operating system
+            <code>(prefersDarkScheme.matches)</code>. If their device is set to
+            dark mode, we seamlessly apply the <code>.dark-mode</code> class
+            right away.
+          </p>
+
+          <h3>The Ultimate Pro-Move: Preventing the FOUC</h3>
+          <p>
+            <em>Architectural Warning:</em> If you place this script at the
+            absolute bottom of your HTML document, your users will experience a
+            <strong>Flash of Unstyled Content (FOUC)</strong>. The browser will
+            paint the light theme first, read the script, and then violently
+            flash to dark mode.
+          </p>
+          <p>
+            To prevent this, take Steps 1 through 3 from the code block above
+            and place them inside an inline <code>&lt;script&gt;</code> tag
+            directly in the <code>&lt;head&gt;</code> of your HTML document.
+            This forces the browser to resolve the theme state
+            <em>before</em> it paints the <code>&lt;body&gt;</code>, ensuring a
+            flawless, flash-free user experience.
+          </p>
+          <p>
+            This architectural approach bridges the gap between clean
+            engineering and exceptional UX. It values user choice, guarantees
+            performance, and uses zero third-party packages to get the job done.
+          </p>
+
+          <!-- SECTION 6: Conclusion -->
+          <h2>Conclusion</h2>
+          <p>
+            Adding a feature like <strong>dark mode</strong> shouldn't feel like
+            a heavy architectural burden. By stepping away from bulky
+            dependencies and leaning on native web tools like CSS custom
+            properties, <code>localStorage</code>, and <code>matchMedia</code>,
+            you create a system that is robust, maintainable, and
+            lightning-fast.
+          </p>
+          <p>
+            As developers, it is easy to fall into the habit of installing
+            packages for every single feature request. But as you continue to
+            build out your toolkit, remember that every third-party script you
+            avoid loading is a direct win for your site's performance,
+            stability, and security. Trust the native web platform—it is already
+            capable of handling the heavy lifting.
+          </p>
+
+          <!-- SECTION 7: The Monetization CTA -->
+          <section class="cta-box">
+            <h3>Stop fighting heavy frameworks.</h3>
+            <p>
+              If you want to master <strong>vanilla web development</strong> and
+              speed up your workflow, check out my premium, zero-bloat UI
+              component kits.
+            </p>
+            <a href="/builds.html" class="cta-btn"
+              >Explore the UI Kits &rarr;</a
+            >
+          </section>
+        </section>
+      </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2026 Llama Dev Builds. Built with Vanilla JS and Zero Bloat.
+        </p>
+        <a href="#top" class="scroll-to-top" aria-label="Scroll back to top"
+          >&uarr; Back to Top</a
+        >
+      </div>
+    </footer>
+
+    <!-- ASSETS & SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    <!-- DARK MODE & UI LOGIC -->
+    <script>
+      const themeToggleBtn = document.querySelector("#theme-toggle");
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark-mode");
+          const theme = document.documentElement.classList.contains("dark-mode")
+            ? "dark"
+            : "light";
+          localStorage.setItem("theme", theme);
+        });
+      }
+    </script>
+  </body>
+</html>
