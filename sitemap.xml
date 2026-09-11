@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://llamadevbuilds.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://llamadevbuilds.com/builds.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://llamadevbuilds.com/articles.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://llamadevbuilds.com/responsive-navbar-vanilla-js.html</loc>
+    <priority>0.64</priority>
+  </url>
+  <url>
+    <loc>https://llamadevbuilds.com/vanilla-js-dark-mode-toggle-localstorage.html</loc>
+    <priority>0.64</priority>
+  </url>
+</urlset>
